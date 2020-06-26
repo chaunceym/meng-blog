@@ -1,13 +1,16 @@
 import Head from 'next/head'
-import ReactMarkdown from 'react-markdown'
-import React from 'react'
+import React, {useState} from 'react'
 import {Row, Col} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Author from './components/Author'
-import Advert from './components/Advert'
+import axios from "axios"
+import ArticleList from "./ArticleList"
+import {List} from "antd"
 
-export default function Home() {
+const Home = (list) => {
+  console.log(list)
+  const [myList, setMyList] = useState(list.data)
   return (
     <>
       <Head>
@@ -16,7 +19,22 @@ export default function Home() {
       <Header/>
       <Row className="comm-main" type="flex" justify="center">
         <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
-          <Advert/>
+          <List
+            header={<div>最新日志</div>}
+            itemLayout="vertical"
+            dataSource={myList}
+            renderItem={item => (
+              <List.Item>
+                <div className="list-title">{item.title}</div>
+                <div className="list-icon">
+                  <span>{item.addTime}</span>
+                  <span>{item.typeName}</span>
+                  <span>{item.view_count}人</span>
+                </div>
+                <div className="list-context">{item.introduce}</div>
+              </List.Item>
+            )}
+          />
         </Col>
         <Col className="comm-right" xs={0} sm={0} md={7} lg={5} xl={4}>
           <Author/>
@@ -26,3 +44,17 @@ export default function Home() {
     </>
   )
 }
+
+Home.getInitialProps = async () => {
+  const promise = new Promise((resolve, reject) => {
+    axios.get('http://127.0.0.1:7001/default/getArticleList')
+      .then(data => {
+        resolve(data.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+  return await promise
+}
+export default Home
