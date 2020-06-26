@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import Head from 'next/head'
 import MarkNav from 'markdown-navbar'
+import ReactMarkdown from "react-markdown"
 import 'markdown-navbar/dist/navbar.css'
 import {Affix, Breadcrumb, Col, Row, message} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import ReactMarkdown from "react-markdown"
 import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
 import axios from "axios"
 import servicePath from "../config/config"
@@ -33,9 +33,9 @@ const ArticleDetail = (list) => {
                 {article.title}
               </div>
               <div className="list-icon center">
-                <span><CalendarOutlined/> {article.addTime}</span>
-                <span><TagOutlined/> {article.typeName}</span>
-                <span><EyeOutlined/> {article.view_count}</span>
+                <span><CalendarOutlined/>  {article.addTime}</span>
+                <span><TagOutlined/>  {article.typeName}</span>
+                <span><EyeOutlined/>  {article.view_count}</span>
               </div>
               <div className="detailed-content">
                 <ReactMarkdown source={article.article_content} escapeHtml={false} ordered={false}/>

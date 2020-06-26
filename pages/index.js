@@ -6,12 +6,18 @@ import Footer from './components/Footer'
 import Author from './components/Author'
 import axios from "axios"
 import {List} from "antd"
+import ReactMarkdown from "react-markdown"
+import 'markdown-navbar/dist/navbar.css'
 import Link from "next/link"
 import servicePath from "../config/config"
+import {CalendarOutlined, EyeOutlined, TagOutlined} from "@ant-design/icons"
 
 const Home = (list) => {
   console.log(list)
   const [myList, setMyList] = useState(list.data)
+  useState(() => {
+    setMyList(list.data)
+  })
   return (
     <>
       <Head>
@@ -32,11 +38,13 @@ const Home = (list) => {
                   </Link>
                 </div>
                 <div className="list-icon">
-                  <span>{item.addTime}</span>
-                  <span>{item.typeName}</span>
-                  <span>{item.view_count}人</span>
+                  <span><CalendarOutlined/> {item.addTime}</span>
+                  <span><TagOutlined/> {item.typeName}</span>
+                  <span><EyeOutlined/> {item.view_count}人</span>
                 </div>
-                <div className="list-context">{item.introduce}</div>
+                <div className="list-context">
+                  <ReactMarkdown source={item.introduce} escapeHtml={false} ordered={false}/>
+                </div>
               </List.Item>
             )}
           />
