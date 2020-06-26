@@ -2,14 +2,13 @@ import React from 'react'
 import Head from 'next/head'
 import MarkNav from 'markdown-navbar'
 import 'markdown-navbar/dist/navbar.css'
-import {Row, Col, Breadcrumb, Affix} from 'antd'
+import {Affix, Breadcrumb, Col, Row} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Advert from './components/Advert'
-import Author from './components/Author'
 import ReactMarkdown from "react-markdown"
+import axios from "axios"
 
-const Detailed = () => {
+const ArticleDetail = () => {
   let markdown = '# P01:课程介绍和环境搭建\n' +
     '[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
     '> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
@@ -138,4 +137,19 @@ const Detailed = () => {
   )
 }
 
-export default Detailed
+ArticleDetail.getInitialProps = async(context) => {
+  console.log(context)
+
+  const {id} = context.query
+  return new Promise((resolve, reject) => {
+    axios(`http://localhost:7001/default/getArticleById/${id}`)
+      .then(data => {
+        resolve(data.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+export default ArticleDetail

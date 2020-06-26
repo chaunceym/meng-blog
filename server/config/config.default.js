@@ -36,7 +36,18 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
-  // add your user config here
+  config.security = {
+    csrf: {
+      enable: false
+    },
+    domainWhiteList: ['*']
+  }
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+  }
+
+// add your user config here
   const userConfig = {
     // myAppName: 'egg',
   };
@@ -45,5 +56,6 @@ module.exports = appInfo => {
     ...config,
     ...userConfig,
   };
-};
+}
+
 

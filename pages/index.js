@@ -5,8 +5,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Author from './components/Author'
 import axios from "axios"
-import ArticleList from "./ArticleList"
 import {List} from "antd"
+import Link from "next/link"
 
 const Home = (list) => {
   console.log(list)
@@ -25,7 +25,11 @@ const Home = (list) => {
             dataSource={myList}
             renderItem={item => (
               <List.Item>
-                <div className="list-title">{item.title}</div>
+                <div className="list-title">
+                  <Link href={{pathname: '/ArticleDetail', query: {id: item.id}}}>
+                    <a>{item.title}</a>
+                  </Link>
+                </div>
                 <div className="list-icon">
                   <span>{item.addTime}</span>
                   <span>{item.typeName}</span>
