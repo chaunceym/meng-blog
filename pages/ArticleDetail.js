@@ -110,7 +110,7 @@ const ArticleDetail = (list) => {
 
 ArticleDetail.getInitialProps = async (context) => {
   const {id} = context.query
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     axios(servicePath.getArticleById + id)
       .then(data => {
         resolve(data.data)
