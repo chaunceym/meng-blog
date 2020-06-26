@@ -2,12 +2,13 @@ import React, {useState} from 'react'
 import Head from 'next/head'
 import MarkNav from 'markdown-navbar'
 import 'markdown-navbar/dist/navbar.css'
-import {Affix, Breadcrumb, Col, Row} from 'antd'
+import {Affix, Breadcrumb, Col, Row, message} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ReactMarkdown from "react-markdown"
 import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
 import axios from "axios"
+import servicePath from "../config/config"
 
 const ArticleDetail = (list) => {
   const [article, setArticle] = useState(list.data[0])
@@ -32,9 +33,9 @@ const ArticleDetail = (list) => {
                 {article.title}
               </div>
               <div className="list-icon center">
-                <span><CalendarOutlined/>  {article.addTime}</span>
-                <span><TagOutlined/>  {article.typeName}</span>
-                <span><EyeOutlined/>  {article.view_count}</span>
+                <span><CalendarOutlined/> {article.addTime}</span>
+                <span><TagOutlined/> {article.typeName}</span>
+                <span><EyeOutlined/> {article.view_count}</span>
               </div>
               <div className="detailed-content">
                 <ReactMarkdown source={article.article_content} escapeHtml={false} ordered={false}/>
@@ -108,16 +109,14 @@ const ArticleDetail = (list) => {
 }
 
 ArticleDetail.getInitialProps = async (context) => {
-  console.log(context)
-
   const {id} = context.query
   return new Promise((resolve, reject) => {
-    axios(`http://localhost:7001/default/getArticleById/${id}`)
+    axios(servicePath.getArticleById + id)
       .then(data => {
         resolve(data.data)
-        console.log(data)
       })
       .catch(err => {
+        message.error('文章获取失败,请稍后尝试');
         reject(err)
       })
   })

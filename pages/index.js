@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import React, {useState} from 'react'
-import {Row, Col} from 'antd'
+import {Row, Col, message} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Author from './components/Author'
 import axios from "axios"
 import {List} from "antd"
 import Link from "next/link"
+import servicePath from "../config/config"
 
 const Home = (list) => {
   console.log(list)
@@ -51,11 +52,12 @@ const Home = (list) => {
 
 Home.getInitialProps = async () => {
   const promise = new Promise((resolve, reject) => {
-    axios.get('http://127.0.0.1:7001/default/getArticleList')
+    axios.get(servicePath.getArticleList)
       .then(data => {
         resolve(data.data)
       })
       .catch(err => {
+        message.error('文章获取失败,请稍后尝试');
         reject(err)
       })
   })

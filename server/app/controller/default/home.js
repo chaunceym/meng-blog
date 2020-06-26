@@ -6,6 +6,11 @@ class HomeController extends Controller {
     this.ctx.body = result
   }
 
+  async getTypeInfo() {
+    const result = await this.app.mysql.select('type')
+    this.ctx.body = {data: result}
+  }
+
   async getArticleList() {
 
     const sql = `SELECT article.id as id, article.title as title,
