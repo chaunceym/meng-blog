@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {HomeOutlined, BookOutlined, CoffeeOutlined} from '@ant-design/icons';
 import {Row, Col, Menu} from 'antd'
 import axios from "axios"
-import servicePath from "../../config/config"
+import servicePath from "../config/config"
 import Router from "next/router"
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
                 <span className="header-logo">
                     <img src="https://chaunceym.github.io/notes/logo.png"/>
                 </span>
-          <span className="header-text">自由之丘</span>
+          <span className="header-text">chauncey的个人博客</span>
         </Col>
         <Col className="menu-div" xs={0} sm={0} md={14} lg={13} xl={8}>
           <Menu mode="horizontal" onClick={toList}>
@@ -40,7 +40,7 @@ const Header = () => {
             {
               navArray.map(item => {
                 return (
-                  <Menu.Item key={item.id} icon={<HomeOutlined/>}>
+                  <Menu.Item key={item.id}>
                     {item.typeName}
                   </Menu.Item>
                 )
@@ -51,6 +51,9 @@ const Header = () => {
       </Row>
 
       <style jsx>{`
+        .menu-div{
+          text-align: right;
+        }
         .header{
             background: #fff;
             padding-top: .5rem;
@@ -60,7 +63,9 @@ const Header = () => {
         }
         .header-text{
             font-size: .3rem;
+            vertical-align: bottom; 
             display: inline-block;
+            padding-left: .3rem;
         }
 `}</style>
     </div>

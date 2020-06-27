@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Head from 'next/head'
 import {Row, Col, List} from 'antd'
-import servicePath from "../config/config"
+import servicePath from "./config/config"
 import axios from "axios"
 import Author from './components/Author'
 import Header from './components/Header'
