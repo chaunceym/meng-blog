@@ -27,7 +27,7 @@ const Header = () => {
     <div className="header">
       <Row type="flex" justify="center">
         <Col xs={24} sm={24} md={10} lg={10} xl={10}>
-                <span className="header-logo">
+                <span  className="header-logo">
                     <img src="https://chaunceym.github.io/notes/logo.png"/>
                 </span>
           <span className="header-text">chauncey的个人博客</span>
