@@ -1,10 +1,20 @@
-import {Avatar, Divider} from 'antd'
+import {Avatar, Divider, notification} from 'antd'
 import {GithubOutlined, ZhihuOutlined, MailOutlined} from '@ant-design/icons'
+import {useEffect} from "react"
 
 const Author = () => {
-  const openGithub = () => {
-    Window.open('www.baidu.com', '_blank')
+  const openGithub = (url) => {
+    window.open(url, '_blank')
   }
+  const openNotification = () => {
+    notification.open({
+      message: '我的邮箱',
+      description:
+        '18322276773@163.com',
+    });
+  };
+  useEffect(() => {
+  })
   return (
     <div className="author-div comm-box">
       <div>
@@ -13,12 +23,15 @@ const Author = () => {
       <div className="author-introduction">
         前端萌新
         <Divider>社交账号</Divider>
-        <Avatar onClick={openGithub} size={28} icon={<GithubOutlined/>} className="account"/>
-        <Avatar size={28} icon={<ZhihuOutlined/>} style={{
+        <Avatar onClick={() => openGithub('https://github.com/chaunceym')} size={28} icon={<GithubOutlined/>}
+                className="account"/>
+        <Avatar onClick={() => openGithub('https://www.zhihu.com/people/bai-ri-meng-54-66')} size={28}
+                icon={<ZhihuOutlined/>} style={{
           margin: '0 .5rem'
         }}
                 className="account"/>
-        <Avatar size={28} icon={<MailOutlined/>} className="account"/>
+        <Avatar onClick={openNotification} size={28}
+                icon={<MailOutlined/>} className="account"/>
       </div>
       <style jsx>
         {`

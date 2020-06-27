@@ -13,7 +13,6 @@ import servicePath from "./config/config"
 import {CalendarOutlined, EyeOutlined, TagOutlined} from "@ant-design/icons"
 
 const Home = (list) => {
-  console.log(list)
   const [myList, setMyList] = useState(list.data)
   useState(() => {
     setMyList(list.data)
