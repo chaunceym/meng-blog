@@ -1,49 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Head from 'next/head'
 import MarkNav from 'markdown-navbar'
+import ReactMarkdown from "react-markdown"
 import 'markdown-navbar/dist/navbar.css'
-import {Row, Col, Breadcrumb, Affix} from 'antd'
+import {Affix, Breadcrumb, Col, Row, message} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Advert from './components/Advert'
-import Author from './components/Author'
-import ReactMarkdown from "react-markdown"
+import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
+import axios from "axios"
+import servicePath from "./config/config"
 
-const Detailed = () => {
-  let markdown = '# P01:课程介绍和环境搭建\n' +
-    '[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
-    '> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
-    '**这是加粗的文字**\n\n' +
-    '*这是倾斜的文字*`\n\n' +
-    '***这是斜体加粗的文字***\n\n' +
-    '~~这是加删除线的文字~~ \n\n' +
-    '\`console.log(111)\` \n\n' +
-    '# p02:来个Hello World 初始Vue3.0\n' +
-    '> aaaaaaaaa\n' +
-    '>> bbbbbbbbb\n' +
-    '>>> cccccccccc\n' +
-    '***\n\n\n' +
-    '# p03:Vue3.0基础知识讲解\n' +
-    '> aaaaaaaaa\n' +
-    '>> bbbbbbbbb\n' +
-    '>>> cccccccccc\n\n' +
-    '# p04:Vue3.0基础知识讲解\n' +
-    '> aaaaaaaaa\n' +
-    '>> bbbbbbbbb\n' +
-    '>>> cccccccccc\n\n' +
-    '#5 p05:Vue3.0基础知识讲解\n' +
-    '> aaaaaaaaa\n' +
-    '>> bbbbbbbbb\n' +
-    '>>> cccccccccc\n\n' +
-    '# p06:Vue3.0基础知识讲解\n' +
-    '> aaaaaaaaa\n' +
-    '>> bbbbbbbbb\n' +
-    '>>> cccccccccc\n\n' +
-    '# p07:Vue3.0基础知识讲解\n' +
-    '> aaaaaaaaa\n' +
-    '>> bbbbbbbbb\n' +
-    '>>> cccccccccc\n\n' +
-    '``` var a=11; ```'
+const ArticleDetail = (list) => {
+  const [article, setArticle] = useState(list.data[0])
   return (
     <>
       <Head>
@@ -56,21 +24,21 @@ const Detailed = () => {
             <div className="bread-div">
               <Breadcrumb>
                 <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                <Breadcrumb.Item>视频列表</Breadcrumb.Item>
-                <Breadcrumb.Item>xxxx</Breadcrumb.Item>
+                <Breadcrumb.Item>{article.typeName}</Breadcrumb.Item>
+                <Breadcrumb.Item>{article.title}</Breadcrumb.Item>
               </Breadcrumb>
             </div>
             <div>
               <div className="detailed-title">
-                React实战视频教程-技术胖Blog开发(更新08集)
+                {article.title}
               </div>
               <div className="list-icon center">
-                <span>2019-06-28</span>
-                <span>视频教程</span>
-                <span>5498人</span>
+                <span><CalendarOutlined/>  {article.addTime}</span>
+                <span><TagOutlined/>  {article.typeName}</span>
+                <span><EyeOutlined/>  {article.view_count}</span>
               </div>
               <div className="detailed-content">
-                <ReactMarkdown source={markdown} escapeHtml={false} ordered={false}/>
+                <ReactMarkdown source={article.article_content} escapeHtml={false} ordered={false}/>
               </div>
             </div>
           </div>
@@ -79,7 +47,7 @@ const Detailed = () => {
           <Affix offsetTop={5}>
             <div className="detailed-nav comm-box">
               <div className="nav-title">文章目录</div>
-              <MarkNav className="article-menu" source={markdown} ordered={false}/>
+              <MarkNav className="article-menu" source={article.article_content} ordered={false}/>
             </div>
           </Affix>
         </Col>
@@ -90,7 +58,6 @@ const Detailed = () => {
       .bread-div{
           padding: .5rem;
           border-bottom:1px solid #eee;
-          background-color: #e1f0ff;
       }
       .detailed-title{
           font-size: 1.8rem;
@@ -99,6 +66,9 @@ const Detailed = () => {
       }
       .center{
           text-align: center;
+      }
+      .center > span{
+        padding: 3rem;
       }
       .detailed-content{
           padding: 1.3rem;
@@ -138,4 +108,18 @@ const Detailed = () => {
   )
 }
 
-export default Detailed
+ArticleDetail.getInitialProps = async (context) => {
+  const {id} = context.query
+  return await new Promise((resolve, reject) => {
+    axios(servicePath.getArticleById + id)
+      .then(data => {
+        resolve(data.data)
+      })
+      .catch(err => {
+        message.error('文章获取失败,请稍后尝试');
+        reject(err)
+      })
+  })
+}
+
+export default ArticleDetail
