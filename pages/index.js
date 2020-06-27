@@ -9,7 +9,7 @@ import {List} from "antd"
 import ReactMarkdown from "react-markdown"
 import 'markdown-navbar/dist/navbar.css'
 import Link from "next/link"
-import servicePath from "./config/config"
+import servicePath from "./urlconfig/config"
 import {CalendarOutlined, EyeOutlined, TagOutlined} from "@ant-design/icons"
 
 const Home = (list) => {
