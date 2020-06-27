@@ -54,9 +54,7 @@ class MainController extends Controller {
     }
     async updateArticle() {
         const newArticle = this.ctx.request.body
-        console.log(newArticle)
         const result = await this.app.mysql.update('article', newArticle)
-        console.log(result)
         if (result.affectedRows === 1) {
             this.ctx.body = {
                 message: '修改成功'
@@ -69,6 +67,7 @@ class MainController extends Controller {
                 article.title as title,
                 article.introduce as introduce,
                 article.view_count as view_count,
+                article.isDraft as isDraft,
                 FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,
                 type.typeName as typeName 
                 FROM article LEFT JOIN type ON article.type_id = type.id 
@@ -81,7 +80,6 @@ class MainController extends Controller {
     async deleteArticle() {
         const { id } = this.ctx.params
         const result = await this.app.mysql.delete('article', { id })
-        console.log(result)
         if (result.affectedRows === 1) {
             this.ctx.body = { message: '删除成功' }
         } else {
