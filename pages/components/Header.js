@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Row, Col, Menu} from 'antd'
 import axios from "axios"
-import servicePath from "../urlconfig/config"
+import servicePath from "../../urlconfig/config"
 import Router from "next/router"
 
 const Header = () => {

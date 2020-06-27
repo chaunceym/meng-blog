@@ -8,7 +8,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
 import axios from "axios"
-import servicePath from "./urlconfig/config"
+import servicePath from "../urlconfig/config"
 
 const ArticleDetail = (list) => {
   const [article, setArticle] = useState(list.data[0])
