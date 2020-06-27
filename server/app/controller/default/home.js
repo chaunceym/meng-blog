@@ -40,7 +40,7 @@ class HomeController extends Controller {
     article.view_count as view_count ,
     type.typeName as typeName 
     FROM article LEFT JOIN type ON article.type_id = type.id 
-    WHERE type_id=${id}
+    WHERE type_id=${id} ORDER BY article.id DESC
     `
     const result = await this.app.mysql.query(sql)
     this.ctx.body = {data: result}

@@ -15,7 +15,7 @@ const ArticleDetail = (list) => {
   return (
     <>
       <Head>
-        <title>Detailed</title>
+        <title>{article.title}</title>
       </Head>
       <Header/>
       <Row className="comm-main" type="flex" justify="center">
@@ -97,6 +97,7 @@ const ArticleDetail = (list) => {
           color:rgb(30, 144, 255);
       }
       .nav-title{
+          padding: .2rem 0 .5rem;
           text-align: center;
           color: #888;
           border-bottom: 1px solid rgb(30, 144, 255);
