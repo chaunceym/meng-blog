@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
 import axios from "axios"
 import servicePath from "../urlconfig/config"
+import CodeBlock from "../util/CodeBlock"
 
 const ArticleDetail = (list) => {
   const [article, setArticle] = useState(list.data[0])
@@ -33,12 +34,15 @@ const ArticleDetail = (list) => {
                 {article.title}
               </div>
               <div className="list-icon center">
-                <span><CalendarOutlined/>  {article.addTime}</span>
-                <span><TagOutlined/>  {article.typeName}</span>
-                <span><EyeOutlined/>  {article.view_count}</span>
+                <span><CalendarOutlined/> {article.addTime}</span>
+                <span><TagOutlined/> {article.typeName}</span>
+                <span><EyeOutlined/> {article.view_count}</span>
               </div>
               <div className="detailed-content">
-                <ReactMarkdown source={article.article_content} escapeHtml={false} ordered={false}/>
+                <ReactMarkdown renderers={{code: CodeBlock}}
+                               source={article.article_content}
+                               escapeHtml={false}
+                               ordered={false}/>
               </div>
             </div>
           </div>
