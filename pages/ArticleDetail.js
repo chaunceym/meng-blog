@@ -74,6 +74,12 @@ const ArticleDetail = (list) => {
       .center > span{
         padding: 3rem;
       }
+      
+      @media (max-width: 767px){
+      .center > span{
+        padding: 0 1rem;
+      }
+      }
       .detailed-content{
           padding: 1.3rem;
           font-size: 1rem;

@@ -21,6 +21,7 @@ const Home = (list) => {
     <>
       <Head>
         <title>chauncey的个人博客</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
       </Head>
       <Header/>
       <Row className="comm-main" type="flex" justify="center">
