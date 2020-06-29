@@ -11,6 +11,7 @@ class HomeController extends Controller {
   }
 
   async getArticleList() {
+    console.log(this.ctx.response.header.vary)
     const sql = `SELECT article.id as id, article.title as title,
       article.introduce as introduce,
       FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,

@@ -43,7 +43,7 @@ module.exports = appInfo => {
     domainWhiteList: ['*']
   }
   config.cors = {
-    origin: '*',
+    origin: '',
     credentials: true,
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   }
