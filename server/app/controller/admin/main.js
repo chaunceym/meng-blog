@@ -1,8 +1,10 @@
 const Controller = require('egg').Controller
+const fs = require('fs')
+const path = require('path')
 
 class MainController extends Controller {
     async index() {
-        this.ctx.body = 'admin manager index'
+        this.ctx.body = 'admin manager index';
     }
     async checkLogin() {
         const { username, password } = this.ctx.request.body
@@ -80,6 +82,41 @@ class MainController extends Controller {
     async deleteArticle() {
         const { id } = this.ctx.params
         const result = await this.app.mysql.delete('article', { id })
+        if (result.affectedRows === 1) {
+            this.ctx.body = { message: '删除成功' }
+        } else {
+            this.ctx.body = { message: '删除失败' }
+        }
+    }
+    async uploadImage() {
+        const formData = this.ctx.request.files[0]
+        const file = fs.readFileSync(formData.filepath)
+        const pathName = `blog${Date.now()}.${formData.mimeType.split('/')[1]}`
+        fs.writeFileSync(path.join('C:/Users/86183/Desktop/meng-blog/server/app/public', pathName), file)
+        const onLineUrl = `http://127.0.0.1:7001/public/${pathName}`
+        const result = await this.app.mysql.insert('image', { path: onLineUrl })
+        if (result.affectedRows === 1) {
+            this.ctx.body = { message: '添加成功' }
+        } else {
+            this.ctx.body = { message: '添加失败' }
+        }
+    }
+    async getImagesPath() {
+        const result = await this.app.mysql.query('select path,id from image  ORDER BY id DESC ')
+        console.log(result)
+        if (result.length) {
+            const pathArray = result.map(item => {
+                return { id: item.id, path: item.path }
+            })
+            console.log(1)
+            this.ctx.body = { message: '获取成功', data: pathArray }
+        } else {
+            this.ctx.body = { message: '没有数据' }
+        }
+    }
+    async deleteImage() {
+        const { id } = this.ctx.params
+        const result = await this.app.mysql.delete('image', { id })
         if (result.affectedRows === 1) {
             this.ctx.body = { message: '删除成功' }
         } else {

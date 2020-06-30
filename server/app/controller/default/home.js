@@ -7,11 +7,10 @@ class HomeController extends Controller {
 
   async getTypeInfo() {
     const result = await this.app.mysql.select('type')
-    this.ctx.body = {data: result}
+    this.ctx.body = { data: result }
   }
 
   async getArticleList() {
-    console.log(this.ctx.response.header.vary)
     const sql = `SELECT article.id as id, article.title as title,
       article.introduce as introduce,
       FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,
@@ -21,18 +20,18 @@ class HomeController extends Controller {
       WHERE article.isDraft = 0
       ORDER BY article.id DESC `
     const results = await this.app.mysql.query(sql)
-    this.ctx.body = {data: results}
+    this.ctx.body = { data: results }
   }
 
   async getArticleById() {
     const id = this.ctx.params.id
     const sql = `SELECT article.id as id, article.title as title, article.introduce as introduce, article.article_content as article_content, FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime, article.view_count as view_count, type.typeName as typeName, type.id as typeId FROM article LEFT JOIN type ON article.type_id = type.id WHERE article.id=${id}`
     const result = await this.app.mysql.query(sql)
-    this.ctx.body = {data: result}
+    this.ctx.body = { data: result }
   }
 
   async getListById() {
-    const {id} = this.ctx.params
+    const { id } = this.ctx.params
     const sql = `
     SELECT article.id as id,
     article.title as title,
@@ -45,7 +44,7 @@ class HomeController extends Controller {
     ORDER BY article.id DESC
     `
     const result = await this.app.mysql.query(sql)
-    this.ctx.body = {data: result}
+    this.ctx.body = { data: result }
   }
 }
 

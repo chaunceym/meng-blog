@@ -9,4 +9,7 @@ module.exports = app => {
     router.post('/admin/updateArticle/:id', adminauth, controller.admin.main.updateArticle)
     router.get('/admin/getArticleList', adminauth, controller.admin.main.getArticleList)
     router.get('/admin/deleteArticle/:id', adminauth, controller.admin.main.deleteArticle)
+    router.post('/admin/uploadImage', controller.admin.main.uploadImage)
+    router.get('/admin/getImagesPath', controller.admin.main.getImagesPath)
+    router.get('/admin/deleteImage/:id', controller.admin.main.deleteImage)
 }
