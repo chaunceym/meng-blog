@@ -9,6 +9,13 @@ body {
   width: 100%;
   overflow-x: hidden
 }
+@media (max-width:767px){
+body {
+  background-color: #fff;
+  width: 100%;
+  overflow-x: hidden
+}
+}
 
 @media (max-width: 765px) {
   body {

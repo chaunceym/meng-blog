@@ -42,6 +42,10 @@ module.exports = appInfo => {
     },
     domainWhiteList: ['*']
   }
+  config.multipart = {
+    mode: 'file'
+  };
+
   config.cors = {
     origin: '',
     credentials: true,
