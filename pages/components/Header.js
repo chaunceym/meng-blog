@@ -26,7 +26,7 @@ const Header = () => {
       <Row type="flex" justify="center">
         <Col xs={20} sm={20} md={10} lg={10} xl={8}>
                 <span className="header-logo">
-                    <img src="https://chaunceym.github.io/notes/logo.png"/>
+                    <img src="https://chaunceym.gitee.io/notes/logo.png"/>
                 </span>
           <span className="header-text">chauncey的个人博客</span>
         </Col>
