@@ -112,7 +112,6 @@ class MainController extends Controller {
     }
     async getImagesPath() {
         const result = await this.app.mysql.query('select path,id from image  ORDER BY id DESC ')
-        console.log(result)
         if (result.length) {
             const pathArray = result.map(item => {
                 return { id: item.id, path: item.path }
