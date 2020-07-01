@@ -101,8 +101,8 @@ class MainController extends Controller {
         const fileData = base64Data[1]
         const dataBuffer = new Buffer(fileData, 'base64');
         const pathName = `blog${Date.now()}.${fileType}`
-        fs.writeFileSync(path.join('C:/Users/86183/Desktop/meng-blog/server/app/public', pathName), dataBuffer);
-        const onLineUrl = `http://127.0.0.1:7001/public/${pathName}`
+        fs.writeFileSync(path.join('/root/chauncey/app/meng-blog/server/app/public', pathName), dataBuffer);
+        const onLineUrl = `http://121.199.1.64:7001/public/${pathName}`
         const result = await this.app.mysql.insert('image', { path: onLineUrl })
         if (result.affectedRows === 1) {
             this.ctx.body = { message: '添加成功', data: onLineUrl }

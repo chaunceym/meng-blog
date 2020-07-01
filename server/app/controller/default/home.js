@@ -21,10 +21,10 @@ class HomeController extends Controller {
                 article.title as title,
                 article.introduce as introduce,
                 article.view_count as view_count,
-                article.isDraft as isDraft,
                 FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,
                 type.typeName as typeName 
                 FROM article LEFT JOIN type ON article.type_id = type.id 
+		WHERE article.isDraft = 0
                 ORDER BY article.id DESC 
                 LIMIT 10 OFFSET ${10 * (page - 1)}
         `

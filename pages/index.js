@@ -21,6 +21,10 @@ const Home = (state) => {
   const getArticleListByPage = (page = 1) => {
     axios(servicePath.getArticleListByPage + page)
       .then(data => {
+<<<<<<< HEAD
+=======
+	console.log(data)
+>>>>>>> 1f682ea83579fad9ac6a259a1fe0836ed69c688e
         setList(data.data.data)
       })
       .catch(err => {

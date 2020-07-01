@@ -1,4 +1,4 @@
-const ipUrl = 'http://127.0.0.1:7001/default/'
+const ipUrl = 'http://121.199.1.64:7001/default/'
 
 const servicePath = {
   getArticleList: `${ipUrl}getArticleList`,
@@ -7,6 +7,5 @@ const servicePath = {
   getListById: `${ipUrl}getListById/`,
   checkLogin: `${ipUrl}checkLogin`,
   getArticleListByPage: `${ipUrl}getArticleListByPage/`,
-
 }
 export default servicePath
