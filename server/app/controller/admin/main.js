@@ -95,10 +95,13 @@ class MainController extends Controller {
         }
     }
     async uploadImage() {
-        const formData = this.ctx.request.files[0]
-        const file = fs.readFileSync(formData.filepath)
-        const pathName = `blog${Date.now()}.${formData.mimeType.split('/')[1]}`
-        fs.writeFileSync(path.join('C:/Users/86183/Desktop/meng-blog/server/app/public', pathName), file)
+        const { dataUrl } = this.ctx.request.body
+        const base64Data = dataUrl.split(',');
+        const fileType = base64Data[0].split(';')[0].split('/')[1]
+        const fileData = base64Data[1]
+        const dataBuffer = new Buffer(fileData, 'base64');
+        const pathName = `blog${Date.now()}.${fileType}`
+        fs.writeFileSync(path.join('C:/Users/86183/Desktop/meng-blog/server/app/public', pathName), dataBuffer);
         const onLineUrl = `http://127.0.0.1:7001/public/${pathName}`
         const result = await this.app.mysql.insert('image', { path: onLineUrl })
         if (result.affectedRows === 1) {
@@ -114,7 +117,6 @@ class MainController extends Controller {
             const pathArray = result.map(item => {
                 return { id: item.id, path: item.path }
             })
-            console.log(1)
             this.ctx.body = { message: '获取成功', data: pathArray }
         } else {
             this.ctx.body = { message: '没有数据' }
