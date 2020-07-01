@@ -1,56 +1,70 @@
 import Head from 'next/head'
-import React, {useState} from 'react'
-import {Row, Col, message, Divider} from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Row, Col, message, Divider, Pagination } from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Author from './components/Author'
 import axios from "axios"
-import {List} from "antd"
+import { List } from "antd"
 import ReactMarkdown from "react-markdown"
 import 'markdown-navbar/dist/navbar.css'
 import Link from "next/link"
 import servicePath from "../urlconfig/config"
-import {CalendarOutlined, EyeOutlined, TagOutlined} from "@ant-design/icons"
+import { CalendarOutlined, EyeOutlined, TagOutlined } from "@ant-design/icons"
 
-const Home = (list) => {
-  const [myList, setMyList] = useState(list.data)
-  useState(() => {
-    setMyList(list.data)
-  })
+const Home = (state) => {
+  const [list, setList] = useState([])
+  const [listLength, setListLength] = useState(state.data)
+  useEffect(() => {
+    getArticleListByPage()
+  }, [])
+  const getArticleListByPage = (page = 1) => {
+    axios(servicePath.getArticleListByPage + page)
+      .then(data => {
+        console.log(data)
+        setList(data.data.data)
+      })
+      .catch(err => {
+        message.error('获取数据失败')
+      })
+  }
+  const changePage = (page) => {
+    getArticleListByPage(page)
+  }
   return (
     <>
       <Head>
         <title>chauncey的个人博客</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
       </Head>
-      <Header/>
+      <Header />
       <Row className="comm-main" type="flex" justify="center">
         <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
           <List
-            header={<div style={{paddingLeft: '.5rem'}}>最新日志</div>}
+            header={<div style={{ paddingLeft: '.5rem' }}>最新日志</div>}
             itemLayout="vertical"
-            dataSource={myList}
+            dataSource={list}
             renderItem={item => (
-              <List.Item style={{padding: '.5rem'}}>
+              <List.Item style={{ padding: '.5rem' }}>
                 <div className="list-title">
-                  <Link href={{pathname: '/ArticleDetail', query: {id: item.id}}}>
+                  <Link href={{ pathname: '/ArticleDetail', query: { id: item.id } }}>
                     <a>{item.title}</a>
                   </Link>
                 </div>
                 <div className="list-icon">
-                  <span><CalendarOutlined/> {item.addTime}</span>
-                  <span style={{margin: '0 1rem'}}><TagOutlined/> {item.typeName}</span>
-                  <span><EyeOutlined/> {item.view_count}</span>
+                  <span><CalendarOutlined /> {item.addTime}</span>
+                  <span style={{ margin: '0 1rem' }}><TagOutlined /> {item.typeName}</span>
+                  <span><EyeOutlined /> {item.view_count}</span>
                 </div>
                 <div className="list-context">
-                  <ReactMarkdown source={item.introduce} escapeHtml={false} ordered={false}/>
+                  <ReactMarkdown source={item.introduce} escapeHtml={false} ordered={false} />
                 </div>
               </List.Item>
             )}
           />
         </Col>
         <Col className="comm-right" xs={0} sm={0} md={7} lg={5} xl={4}>
-          <Author/>
+          <Author />
           <div className="comm-box friend-link">
             <Divider>友情链接</Divider>
             <div>
@@ -68,7 +82,10 @@ const Home = (list) => {
           </div>
         </Col>
       </Row>
-      <Footer/>
+      <div style={{ textAlign: 'center', marginTop: '10px' }}>
+        <Pagination defaultCurrent={1} onChange={changePage} total={listLength} />
+      </div>
+      <Footer />
       <style jsx>
         {`
         .friend-link{

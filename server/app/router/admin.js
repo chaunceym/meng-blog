@@ -12,4 +12,5 @@ module.exports = app => {
     router.post('/admin/uploadImage', controller.admin.main.uploadImage)
     router.get('/admin/getImagesPath', controller.admin.main.getImagesPath)
     router.get('/admin/deleteImage/:id', controller.admin.main.deleteImage)
+    router.get('/admin/getArticleListByPage/:page', controller.admin.main.getArticleListByPage)
 }

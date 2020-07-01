@@ -64,6 +64,11 @@ class MainController extends Controller {
         }
     }
     async getArticleList() {
+        const result = await this.app.mysql.query('select count(*) as total from article')
+        this.ctx.body = { data: result[0].total }
+    }
+    async getArticleListByPage() {
+        const { page } = this.ctx.params
         const sql = `
         SELECT article.id as id,
                 article.title as title,
@@ -74,6 +79,7 @@ class MainController extends Controller {
                 type.typeName as typeName 
                 FROM article LEFT JOIN type ON article.type_id = type.id 
                 ORDER BY article.id DESC 
+                LIMIT 10 OFFSET ${10 * (page - 1)}
         `
         const result = await this.app.mysql.query(sql)
         this.ctx.body = { data: result }
@@ -96,7 +102,7 @@ class MainController extends Controller {
         const onLineUrl = `http://127.0.0.1:7001/public/${pathName}`
         const result = await this.app.mysql.insert('image', { path: onLineUrl })
         if (result.affectedRows === 1) {
-            this.ctx.body = { message: '添加成功' }
+            this.ctx.body = { message: '添加成功', data: onLineUrl }
         } else {
             this.ctx.body = { message: '添加失败' }
         }

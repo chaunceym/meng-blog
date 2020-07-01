@@ -11,17 +11,27 @@ class HomeController extends Controller {
   }
 
   async getArticleList() {
-    const sql = `SELECT article.id as id, article.title as title,
-      article.introduce as introduce,
-      FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,
-      article.view_count as view_count,
-      type.typeName as typeName 
-      FROM article LEFT JOIN type ON article.type_id = type.id
-      WHERE article.isDraft = 0
-      ORDER BY article.id DESC `
-    const results = await this.app.mysql.query(sql)
-    this.ctx.body = { data: results }
+    const result = await this.app.mysql.query('select count(*) as total from article')
+    this.ctx.body = { data: result[0].total }
   }
+  async getArticleListByPage() {
+    const { page } = this.ctx.params
+    const sql = `
+        SELECT article.id as id,
+                article.title as title,
+                article.introduce as introduce,
+                article.view_count as view_count,
+                article.isDraft as isDraft,
+                FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,
+                type.typeName as typeName 
+                FROM article LEFT JOIN type ON article.type_id = type.id 
+                ORDER BY article.id DESC 
+                LIMIT 10 OFFSET ${10 * (page - 1)}
+        `
+    const result = await this.app.mysql.query(sql)
+    this.ctx.body = { data: result }
+  }
+
 
   async getArticleById() {
     const id = this.ctx.params.id

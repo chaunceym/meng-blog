@@ -9,6 +9,13 @@ body {
   width: 100%;
   overflow-x: hidden
 }
+@media (max-width:767px){
+body {
+  background-color: #fff;
+  width: 100%;
+  overflow-x: hidden
+}
+}
 
 .comm-left, .comm-right {
   background-color: #FFF;
@@ -28,4 +35,9 @@ body {
 
 .comm-main {
   margin-top: .5rem;
+}
+@media (max-width: 767px){
+.comm-main {
+  margin-top: 0;
+}
 }
