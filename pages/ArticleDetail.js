@@ -3,32 +3,31 @@ import Head from 'next/head'
 import MarkNav from 'markdown-navbar'
 import ReactMarkdown from "react-markdown"
 import 'markdown-navbar/dist/navbar.css'
-import { Affix, Breadcrumb, Col, Row, message } from 'antd'
+import {Affix, Breadcrumb, Col, Row, message} from 'antd'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import { TagOutlined, EyeOutlined, CalendarOutlined } from '@ant-design/icons'
+import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
 import axios from "axios"
 import servicePath from "../urlconfig/config"
 import CodeBlock from "../util/CodeBlock"
 
 const ArticleDetail = (list) => {
   const [article, setArticle] = useState(list.data[0])
-  useEffect(() => { 
-
-	  const father = document.querySelector('.detailed-content')
-	  for(let i =0;i<father.childElementCount;i++){ 
-	  const nodeFirst = father.children[i].firstChild 
-	  if(nodeFirst.nodeName === 'IMG'){  
-	  nodeFirst.style.width = '100%'   
-	  }  
-	  }  
+  useEffect(() => {
+    const father = document.querySelector('.detailed-content')
+    for(let i =0;i<father.childElementCount;i++){
+      const nodeFirst = father.children[i].firstChild
+      if(nodeFirst.nodeName === 'IMG'){
+        nodeFirst.style.width = '100%'
+      }
+    }
   }, [])
   return (
     <>
       <Head>
         <title>{article.title}</title>
       </Head>
-      <Header />
+      <Header/>
       <Row className="comm-main" type="flex" justify="center">
         <Col className="comm-left" xs={24} sm={24} md={16} lg={18} xl={14}>
           <div>
@@ -44,9 +43,9 @@ const ArticleDetail = (list) => {
                 {article.title}
               </div>
               <div className="list-icon center">
-                <span><CalendarOutlined /> {article.addTime}</span>
-                <span><TagOutlined /> {article.typeName}</span>
-                <span><EyeOutlined /> {article.view_count}</span>
+                <span><CalendarOutlined/> {article.addTime}</span>
+                <span><TagOutlined/> {article.typeName}</span>
+                <span><EyeOutlined/> {article.view_count}</span>
               </div>
               <div className="detailed-content">
                 <ReactMarkdown renderers={{ code: CodeBlock }} source={article.article_content} />
@@ -58,12 +57,12 @@ const ArticleDetail = (list) => {
           <Affix offsetTop={10}>
             <div className="detailed-nav comm-box">
               <div className="nav-title">文章目录</div>
-              <MarkNav className="article-menu" ordered={false} source={article.article_content}/>
+              <MarkNav className="article-menu" source={article.article_content} ordered={false}/>
             </div>
           </Affix>
         </Col>
       </Row>
-      <Footer />
+      <Footer/>
       <style jsx>
         {`
       .bread-div{
@@ -126,7 +125,7 @@ const ArticleDetail = (list) => {
 }
 
 ArticleDetail.getInitialProps = async (context) => {
-  const { id } = context.query
+  const {id} = context.query
   return await new Promise((resolve, reject) => {
     axios(servicePath.getArticleById + id)
       .then(data => {
