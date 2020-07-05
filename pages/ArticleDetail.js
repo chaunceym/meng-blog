@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import Head from 'next/head'
 import MarkNav from 'markdown-navbar'
 import ReactMarkdown from "react-markdown"
@@ -13,6 +13,16 @@ import CodeBlock from "../util/CodeBlock"
 
 const ArticleDetail = (list) => {
   const [article, setArticle] = useState(list.data[0])
+  useEffect(() => { 
+
+	  const father = document.querySelector('.detailed-content')
+	  for(let i =0;i<father.childElementCount;i++){ 
+	  const nodeFirst = father.children[i].firstChild 
+	  if(nodeFirst.nodeName === 'IMG'){  
+	  nodeFirst.style.width = '100%'   
+	  }  
+	  }  
+  }, [])
   return (
     <>
       <Head>
@@ -39,19 +49,16 @@ const ArticleDetail = (list) => {
                 <span><EyeOutlined /> {article.view_count}</span>
               </div>
               <div className="detailed-content">
-                <ReactMarkdown renderers={{ code: CodeBlock }}
-                  source={article.article_content}
-                  escapeHtml={false}
-                  ordered={false} />
+                <ReactMarkdown renderers={{ code: CodeBlock }} source={article.article_content} />
               </div>
             </div>
           </div>
         </Col>
         <Col className="comm-right" xs={0} sm={0} md={7} lg={5} xl={4}>
-          <Affix offsetTop={5}>
+          <Affix offsetTop={10}>
             <div className="detailed-nav comm-box">
               <div className="nav-title">文章目录</div>
-              <MarkNav className="article-menu" source={article.article_content} ordered={false} />
+              <MarkNav className="article-menu" ordered={false} source={article.article_content}/>
             </div>
           </Affix>
         </Col>
@@ -111,7 +118,6 @@ const ArticleDetail = (list) => {
           text-align: center;
           color: #888;
           border-bottom: 1px solid rgb(30, 144, 255);
-
       }
             `}
       </style>

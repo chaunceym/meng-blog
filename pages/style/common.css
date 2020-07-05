@@ -4,24 +4,16 @@
   box-sizing: border-box;
 }
 
-body {
+body,html{
   background-color: #f6f6f6;
-  width: 100%;
-  overflow-x: hidden
-}
-@media (max-width:767px){
-body {
-  background-color: #fff;
-  width: 100%;
-  overflow-x: hidden
-}
 }
 
 @media (max-width: 765px) {
-  body {
+  body,html{
   background-color: #fff;
   width: 100%;
-  overflow-x: hidden
+  overflow: hidden;
+  overflow-y: auto;
   }
 }
 
