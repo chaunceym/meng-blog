@@ -12,6 +12,13 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
+  config.session = {
+    key: 'SESSION_ID', 
+    maxAge: 72 * 3600 * 1000,  
+    httpOnly: true,  
+    encrypt: true,
+    sameSite: 'none',
+  }
   config.mysql = {
     client: {
       // host
@@ -36,18 +43,19 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
-  config.security = {
-    csrf: {
-      enable: false
-    },
-    domainWhiteList: ['*']
-  }
   config.multipart = {
     mode: 'file'
   };
+	
+  config.security = {     
+    csrf: {     
+       enable: false 
+    },     
+    domainWhiteList: ['http://mengxiangyu.top:3000','http://mengxiangyu.top']  
+  }
 
   config.cors = {
-    origin: '',
+    // origin: '',
     credentials: true,
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   }

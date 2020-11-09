@@ -48,7 +48,7 @@ const ArticleDetail = (list) => {
                 <span><EyeOutlined/> {article.view_count}</span>
               </div>
               <div className="detailed-content">
-                <ReactMarkdown renderers={{ code: CodeBlock }} source={article.article_content} />
+                <ReactMarkdown escapeHtml={false} renderers={{ code: CodeBlock }} source={article.article_content} />
               </div>
             </div>
           </div>

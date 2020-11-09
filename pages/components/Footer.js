@@ -1,8 +1,8 @@
 const Footer = () => {
   return (<>
     <div className="footer-div">
-      <p>系统由 React + Node + Ant Design 驱动</p>
-      <p>mengxiangyu.top</p>
+      <p>It works on my machine!</p>
+      <p><a href="http://www.mengxiangyu.top">mengxiangyu.top</a> | <a href="http://www.beian.miit.gov.cn/">晋ICP备20006602号</a></p>
     </div>
     <style jsx>{`
             .footer-div{
