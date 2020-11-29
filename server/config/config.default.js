@@ -17,7 +17,8 @@ module.exports = appInfo => {
     maxAge: 72 * 3600 * 1000,  
     httpOnly: true,  
     encrypt: true,
-    sameSite: 'none',
+    //sameSite: 'none',
+    //secure: true
   }
   config.mysql = {
     client: {
@@ -51,7 +52,7 @@ module.exports = appInfo => {
     csrf: {     
        enable: false 
     },     
-    domainWhiteList: ['http://mengxiangyu.top:3000','http://mengxiangyu.top']  
+    domainWhiteList: ['http://mengxiangyu.top','http://man.mengxiangyu.top','http://blog.mengxiangyu.top']  
   }
 
   config.cors = {

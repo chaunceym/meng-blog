@@ -13,4 +13,6 @@ module.exports = app => {
     router.get('/admin/getImagesPath', controller.admin.main.getImagesPath)
     router.get('/admin/deleteImage/:id', adminauth,controller.admin.main.deleteImage)
     router.get('/admin/getArticleListByPage/:page', adminauth,controller.admin.main.getArticleListByPage)
+    router.get('/admin/getComments', adminauth,controller.admin.main.getComments) 
+    router.get('/admin/deleteComment/:id', adminauth,controller.admin.main.deleteComment)
 }

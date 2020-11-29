@@ -10,6 +10,7 @@ import {TagOutlined, EyeOutlined, CalendarOutlined} from '@ant-design/icons'
 import axios from "axios"
 import servicePath from "../urlconfig/config"
 import CodeBlock from "../util/CodeBlock"
+import CommentPart from './components/CommentPart'
 
 const ArticleDetail = (list) => {
   const [article, setArticle] = useState(list.data[0])
@@ -51,6 +52,7 @@ const ArticleDetail = (list) => {
                 <ReactMarkdown escapeHtml={false} renderers={{ code: CodeBlock }} source={article.article_content} />
               </div>
             </div>
+            <CommentPart id={article.id}/>
           </div>
         </Col>
         <Col className="comm-right" xs={0} sm={0} md={7} lg={5} xl={4}>

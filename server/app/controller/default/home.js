@@ -14,6 +14,21 @@ class HomeController extends Controller {
     const result = await this.app.mysql.query('select count(*) as total from article')
     this.ctx.body = { data: result[0].total }
   }
+
+  async putComment() {    
+    const result = await this.app.mysql.insert('comments', this.ctx.request.body)  
+    if (result.affectedRows === 1) { 
+       this.ctx.body = {message: '修改成功'}   
+    }   
+  }
+  async getComments() {    
+    const {id} = this.ctx.params  
+    const result = await this.app.mysql.query(`select comment_content,datetime from comments where article_id = ${id}`)     
+    this.ctx.body = {data: result}   
+  }
+
+
+
   async getArticleListByPage() {
     const { page } = this.ctx.params
     const sql = `

@@ -7,5 +7,7 @@ const servicePath = {
   getListById: `${ipUrl}getListById/`,
   checkLogin: `${ipUrl}checkLogin`,
   getArticleListByPage: `${ipUrl}getArticleListByPage/`,
+  putComment: `${ipUrl}putComment`,   
+  getComments: `${ipUrl}getComments/`
 }
 export default servicePath

@@ -22,6 +22,26 @@ class MainController extends Controller {
         const result = await this.app.mysql.select('type')
         this.ctx.body = { data: result }
     }
+
+    async getComments() {  
+	    const result = await this.app.mysql.query('select comment_content, datetime, comment_id, title from article, comments where article.id = comments.article_id')     
+		    if (result.length !== 0) {  
+			    this.ctx.body = result     
+		    } else { 
+			    this.ctx.body = []  
+		    }  
+    }   
+    async deleteComment() {  
+	    const {id} = this.ctx.params 
+		    const result = await this.app.mysql.delete('comments', {comment_id: id}) 
+		    if (result.affectedRows === 1) {  
+			    this.ctx.body = {message: '删除成功'}   
+		    } else {    
+			    this.ctx.body = {message: '删除失败'}  
+		    }   
+    }
+
+
     async getArticleInfo() {
         const { id } = this.ctx.params
         const sql = `
