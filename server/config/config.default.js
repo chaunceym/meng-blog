@@ -52,7 +52,7 @@ module.exports = appInfo => {
     csrf: {     
        enable: false 
     },     
-    domainWhiteList: ['http://mengxiangyu.top','http://man.mengxiangyu.top','http://blog.mengxiangyu.top']  
+    domainWhiteList: ['http://mengxiangyu.top','http://mengxiangyu.top:3001','http://man.mengxiangyu.top','http://blog.mengxiangyu.top']  
   }
 
   config.cors = {
